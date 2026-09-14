@@ -34,20 +34,18 @@ public class CartTests {
         h.assertTrue(cart != null && cart.getCustomName() != null
                 && "#fast".equals(cart.getCustomName().getString()), "placed cart must inherit anvil name");
         h.getLevel().addFreshEntity(cart);
-        var pig = h.spawn(EntityTypes.PIG, new BlockPos(1, 2, 1));
-        pig.startRiding(cart, true, false);
         h.startSequence().thenIdle(2).thenExecute(() ->
-            h.assertTrue(cart.getBehavior() instanceof NewMinecartBehavior, "placed named cart must opt in")
+            h.assertTrue(cart.getBehavior() instanceof NewMinecartBehavior, "placed empty named cart must opt in")
         ).thenSucceed();
     }
 
     @GameTest
-    public void fastNameOptsMobInAndRemovingItOptsOut(GameTestHelper h) {
+    public void fastNameOptsInRegardlessOfPassenger(GameTestHelper h) {
         var cart = track(h);
         var pig = h.spawn(EntityTypes.PIG, new BlockPos(1, 2, 1));
         cart.setCustomName(Component.literal("#fast"));
         h.startSequence().thenIdle(2).thenExecute(() -> {
-            h.assertTrue(cart.getBehavior() instanceof OldMinecartBehavior, "named empty cart stays vanilla");
+            h.assertTrue(cart.getBehavior() instanceof NewMinecartBehavior, "named empty cart uses improved physics");
             pig.startRiding(cart, true, false);
         }).thenIdle(2).thenExecute(() -> {
             h.assertTrue(cart.getBehavior() instanceof NewMinecartBehavior, "named mob cart uses improved physics");
@@ -59,8 +57,11 @@ public class CartTests {
             h.assertTrue(cart.getBehavior() instanceof NewMinecartBehavior, "renaming opts in again");
             pig.stopRiding();
             pig.discard();
+        }).thenIdle(2).thenExecute(() -> {
+            h.assertTrue(cart.getBehavior() instanceof NewMinecartBehavior, "named cart keeps improved physics after dismount");
+            cart.setCustomName(null);
         }).thenIdle(2).thenExecute(() ->
-            h.assertTrue(cart.getBehavior() instanceof OldMinecartBehavior, "empty named cart returns to vanilla")
+            h.assertTrue(cart.getBehavior() instanceof OldMinecartBehavior, "removing name from empty cart restores vanilla")
         ).thenSucceed();
     }
 
@@ -76,7 +77,7 @@ public class CartTests {
         chest.setCustomName(Component.literal("#fast"));
         h.startSequence().thenIdle(2).thenExecute(() -> {
             for (var c : new AbstractMinecart[]{cart, hopper, chest}) {
-                h.assertTrue(c.getBehavior() instanceof OldMinecartBehavior, "only exact name on regular occupied carts opts in");
+                h.assertTrue(c.getBehavior() instanceof OldMinecartBehavior, "only exact name on regular carts opts in");
             }
             cart.setCustomName(Component.literal("transport #fast"));
         }).thenIdle(2).thenExecute(() ->

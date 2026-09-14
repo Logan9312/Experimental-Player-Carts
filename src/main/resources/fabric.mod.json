@@ -3,7 +3,7 @@
   "id": "player_cart_physics",
   "version": "${version}",
   "name": "Experimental Player Carts",
-  "description": "Experimental minecart physics for player rides and mob transport in carts named #fast.",
+  "description": "Experimental minecart physics for player rides and carts named #fast, empty or occupied.",
   "authors": ["Logan9312"],
   "license": "MIT",
   "contact": {
