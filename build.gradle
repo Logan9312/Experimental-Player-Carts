@@ -2,7 +2,7 @@ plugins {
     id 'net.fabricmc.fabric-loom' version '1.17.6'
 }
 
-version = '0.1.1'
+version = '0.1.2'
 group = 'ca.loganlab'
 
 dependencies {
@@ -30,5 +30,5 @@ processResources {
     filesMatching('fabric.mod.json') { expand version: project.version }
 }
 
-jar { from 'NOTICE' }
-sourcesJar { from 'NOTICE' }
+jar { from 'LICENSE', 'NOTICE' }
+sourcesJar { from 'LICENSE', 'NOTICE' }

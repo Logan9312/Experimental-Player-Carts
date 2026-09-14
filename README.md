@@ -1,4 +1,4 @@
-# Player Cart Physics
+# Experimental Player Carts
 
 A server-side Fabric mod that gives your minecart experimental
 physics while you ride it. Name a regular cart `#fast` in an anvil to give it

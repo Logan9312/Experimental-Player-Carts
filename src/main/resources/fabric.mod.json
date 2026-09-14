@@ -2,8 +2,14 @@
   "schemaVersion": 1,
   "id": "player_cart_physics",
   "version": "${version}",
-  "name": "Player Cart Physics",
-  "description": "Experimental movement for player-ridden minecarts, without enabling the world experiment.",
+  "name": "Experimental Player Carts",
+  "description": "Experimental minecart physics for player rides and mob transport in carts named #fast.",
+  "authors": ["Logan9312"],
+  "license": "MIT",
+  "contact": {
+    "sources": "https://github.com/Logan9312/Experimental-Player-Carts",
+    "issues": "https://github.com/Logan9312/Experimental-Player-Carts/issues"
+  },
   "environment": "server",
   "mixins": ["player_cart_physics.mixins.json"],
   "depends": {
