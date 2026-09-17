@@ -1,6 +1,6 @@
 # Experimental Player Carts
 
-A server-side Fabric mod that gives your minecart experimental
+A server-side Fabric mod for Minecraft 26.3 that gives your minecart experimental
 physics while you ride it. Name a regular cart `#fast` in an anvil to give it
 the same physics whether empty or occupied. Other empty carts and mob carts
 keep vanilla mechanics.
